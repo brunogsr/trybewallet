@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { saveLogin } from '../redux/actions';
 
-class Login extends React.Component {
+class LoginComponent extends React.Component {
   state = {
     email: '',
     password: '',
@@ -32,12 +33,11 @@ class Login extends React.Component {
     }, this.validationEmailAndPassword);
   };
 
-  onLoginButtonClick = async (event) => {
-    event.preventDefault();
+  onLoginButtonClick = () => {
     const { history, dispatch } = this.props;
     const { email } = this.state;
-    history.push('/carteira');
     dispatch(saveLogin(email));
+    history.push('/carteira');
   };
 
   render() {
@@ -74,7 +74,10 @@ class Login extends React.Component {
           <button
             type="button"
             data-testid="login-submit-button"
-            onClick={ this.onLoginButtonClick }
+            onClick={ (event) => {
+              this.onLoginButtonClick();
+              event.preventDefault();
+            } }
             disabled={ isButtonDisabled }
           >
             Entrar
@@ -85,7 +88,7 @@ class Login extends React.Component {
   }
 }
 
-Login.propTypes = {
+LoginComponent.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }),
@@ -98,4 +101,4 @@ Login.propTypes = {
 
 // export default connect(mapStateToProps)(Login);
 
-export default connect()(Login);
+export default connect()(withRouter(LoginComponent));
