@@ -12,7 +12,7 @@ class Header extends Component {
     const { email, expenses } = this.props;
     const initialValue = 0;
     // const sumTotal =
-    console.log(expenses);
+    // console.log(expenses);
     return (
       <div data-testid="email-field">
         { email }
