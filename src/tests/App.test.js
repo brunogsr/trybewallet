@@ -102,7 +102,7 @@ describe('Testando Wallet', () => {
       expect(convertedValue).toBeInTheDocument();
     });
 
-    const deleteButton = screen.getByTestId(/delete-btn/i); // Só depois de adicionar a despesa o botão delete aparece
+    const deleteButton = screen.getByTestId(/delete-btn/i); // Só depois de adicionar a despesa o botão delete aparece.
     userEvent.click(deleteButton);
 
     await waitFor(() => {
