@@ -33,17 +33,17 @@ class Table extends Component {
               exchangeRates,
             }) => (
               <tr key={ id }>
-                <td>{description}</td>
+                <td data-testid="description-td">{description}</td>
                 <td>{tag}</td>
                 <td>{method}</td>
                 <td>{Number(value).toFixed(2)}</td>
                 <td>{exchangeRates[currency].name}</td>
                 <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
-                <td>Real</td>
-                <td>
+                <td data-testid="converted-value">
                   {(Number(exchangeRates[currency].ask
                   * Number(value)).toFixed(2))}
                 </td>
+                <td>Real</td>
               </tr>
             // feito com ajuda do Ébão s2 <3
             ))

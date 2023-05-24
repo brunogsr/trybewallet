@@ -26,7 +26,7 @@ class WalletForm extends Component {
     });
   };
 
-  addExpensesButton = async (event) => {
+  addExpensesButton = (event) => {
     event.preventDefault();
     const { dispatch } = this.props;
     const { value, description, currency, method, tag } = this.state;
