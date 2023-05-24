@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
 import App from '../App';
@@ -74,7 +74,8 @@ describe('Testando Wallet', () => {
     expect(method).toBeInTheDocument();
     expect(tag).toBeInTheDocument();
   });
-  it('Verifica se ao adicionar uma despesa, ela aparece na tela corretamente', () => {
+
+  it('Verifica se ao adicionar uma despesa, ela aparece na tela corretamente e se o botão de delete funciona corretamente', async () => {
     renderWithRouterAndRedux(<App />);
     userEvent.type(screen.getByTestId(dataTestEmail), validEmail);
     userEvent.type(screen.getByTestId(dataTestPassword), '1234567');
@@ -91,14 +92,26 @@ describe('Testando Wallet', () => {
     userEvent.type(method, 'Cartão de crédito');
     userEvent.type(tag, 'Lazer');
     userEvent.click(addButton);
-    // Espera dois segundos para que a requisição seja feita
-    setTimeout(() => { // Projeto Trivia
+
+    await waitFor(() => {
       const descriptionTd = screen.getByTestId(/description-td/i);
       const convertedValue = screen.getByTestId(/converted-value/i);
       const descriptionText = screen.getByText(/BLABLABLA/i);
       expect(descriptionText).toBeInTheDocument();
       expect(descriptionTd).toBeInTheDocument();
       expect(convertedValue).toBeInTheDocument();
-    }, 2000);
+    });
+
+    const deleteButton = screen.getByTestId(/delete-btn/i); // Só depois de adicionar a despesa o botão delete aparece
+    userEvent.click(deleteButton);
+
+    await waitFor(() => {
+      const descriptionTd = screen.queryByTestId(/description-td/i);
+      const convertedValue = screen.queryByTestId(/converted-value/i);
+      const descriptionText = screen.queryByText(/BLABLABLA/i);
+      expect(descriptionText).not.toBeInTheDocument();
+      expect(descriptionTd).not.toBeInTheDocument();
+      expect(convertedValue).not.toBeInTheDocument();
+    });
   });
 });
