@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteExpense } from '../redux/actions';
 
 class Table extends Component {
   render() {
-    const { expenses } = this.props;
+    const { expenses, dispatch } = this.props;
     return (
-
       <table>
         <thead>
           <tr>
@@ -44,6 +44,15 @@ class Table extends Component {
                   * Number(value)).toFixed(2))}
                 </td>
                 <td>Real</td>
+                <td>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ () => dispatch(deleteExpense(id)) }
+                  >
+                    Excluir
+                  </button>
+                </td>
               </tr>
             // feito com ajuda do Ébão s2 <3
             ))

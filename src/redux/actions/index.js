@@ -5,12 +5,12 @@ export const SAVE_CURRENCIES = 'SAVE_CURRENCIES';
 export const REQUEST_FAILED = 'REQUEST_FAILED';
 export const SAVE_LOGIN = 'SAVE_LOGIN';
 export const ADD_EXPENSES = 'ADD_EXPENSES';
-export const UPTATE_ID = 'UPTADE_ID';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
-// export const updateId = (id) => ({
-//   type: UPTATE_ID,
-//   id,
-// });
+export const deleteExpense = (id) => ({
+  type: DELETE_EXPENSE,
+  id,
+});
 
 export const addExpenses = (newExpense) => ({
   type: ADD_EXPENSES,

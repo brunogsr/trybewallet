@@ -4,6 +4,7 @@
 import {
   ADD_EXPENSES,
   REQUEST_SUCCESSFUL,
+  DELETE_EXPENSE,
   // UPTATE_ID,
 } from '../actions';
 
@@ -25,10 +26,11 @@ const wallet = (state = INITIAL_STATE, action) => {
     return { ...state,
       currencies: action.currencies,
     };
-  // case UPTATE_ID:
-  //   return { ...state,
-  //     id: action.id + 1,
-  //   };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter(({ id }) => id !== action.id),
+    };
   default:
     return state;
   }
